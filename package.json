@@ -1,0 +1,84 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "keywords": [
+    "graphql",
+    "react",
+    "apollo",
+    "lightweight",
+    "fast",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manu2manu/graphql-react-client.git"
+  },
+  "homepage": "https://github.com/manu2manu/graphql-react-client",
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "bracketSpacing": true,
+    "trailingComma": "none",
+    "singleQuote": true,
+    "printWidth": 80,
+    "tabWidth": 2,
+    "arrowParens": "avoid",
+    "endOfLine": "lf"
+  },
+  "name": "graphql-react-client",
+  "author": "manu",
+  "module": "dist/graphql-react-client.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/graphql-react-client.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/graphql-react-client.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^6.0.3",
+    "@types/apollo-upload-client": "^14.1.0",
+    "@types/react": "^17.0.31",
+    "@types/react-dom": "^17.0.10",
+    "husky": "^7.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "size-limit": "^6.0.3",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.4.16",
+    "apollo-upload-client": "^16.0.0",
+    "graphql": "^15.6.1"
+  }
+}
