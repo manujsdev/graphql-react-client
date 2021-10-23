@@ -314,7 +314,7 @@ describe('Test Graphql Service', () => {
 
       expect(typeof query).toEqual(typeof new Object());
     } catch (e) {
-      //
+      console.log('error: ', e);
     }
   });
 });
