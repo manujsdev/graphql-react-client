@@ -236,6 +236,13 @@ export class GraphqlService {
     return this.exec(scope, schema, variables);
   }
 
+  /**
+   *
+   * @param scope
+   * @param schema
+   * @param variables
+   * @param mutate
+   */
   private exec = (
     scope: string,
     schema: string,
