@@ -203,14 +203,7 @@ export class GraphqlService {
    * @returns a client graphql
    */
   async getClient(scope = 'websiteBackend') {
-    let client;
-    if (this.client) {
-      client = this.client;
-    } else {
-      client = this.createPrivateClient(scope);
-    }
-
-    return client;
+    return this.client ? this.client : this.createPrivateClient(scope);
   }
 
   /**
@@ -219,12 +212,7 @@ export class GraphqlService {
    * @param callback a client graphql
    */
   async request(scope: string, callback: any) {
-    let client;
-    if (this.client) {
-      client = this.client;
-    } else {
-      client = this.createPrivateClient(scope);
-    }
+    const client = this.getClient(scope);
     return callback(client);
   }
 

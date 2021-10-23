@@ -30,14 +30,18 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "format": "git diff --diff-filter=d --name-only HEAD | grep -E '(\\.tsx?|\\.json)$' | xargs prettier --write ",
+    "precheck": "yarn format && yarn lint",
+    "commit": "yarn precheck && git add . && git-cz",
+    "semver": "semantic-release"
   },
   "peerDependencies": {
     "react": ">=16"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "prettier": {
@@ -64,13 +68,17 @@
     }
   ],
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
     "@size-limit/preset-small-lib": "^6.0.3",
     "@types/apollo-upload-client": "^14.1.0",
     "@types/react": "^17.0.31",
     "@types/react-dom": "^17.0.10",
+    "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "semantic-release": "^18.0.0",
     "size-limit": "^6.0.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",

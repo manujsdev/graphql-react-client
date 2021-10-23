@@ -1,36 +1,6 @@
 import { GraphqlService } from '../src/graphqlService';
 import { ApolloClient, gql } from '@apollo/client';
 
-/**
- * Data auth
- */
-// const dataAuth = {
-//   token:
-//     'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjNhZDliZDIyNDcyYzAxNWRmZDE1NjJmNDgwM2U3NTIxOGJjMzBmOWQ0MjM5MzBiYWQ',
-//   roles: ['TYPE_USER_BASIC', 'TYPE_SUPER_ADMIN'],
-//   permissions: [
-//     'UserGetExist',
-//     'BasicProfileGet',
-//     'StripeEphemeralKeyGet',
-//     'DummyGet',
-//     'DummyList',
-//     'DriverGet',
-//     'DummyCreate',
-//     'DummyUpdate'
-//   ],
-//   dataUserAuth: {
-//     firstName: 'Administrator',
-//     lastName: 'Goheavy',
-//     email: 'admin@goheavy.com',
-//     avatar: { publicUrl: null }
-//   },
-//   expiresIn: 1296000,
-//   companies: [
-//     { typeSuperAdmin: { companyId: 'MzM2SHNRSzZGMXF3NmNSTVdTdlhxMlY6MQ' } }
-//   ],
-//   mainRole: 'TYPE_SUPER_ADMIN'
-// };
-
 describe('Test Graphql Service', () => {
   let instance: GraphqlService;
   const ENV = `dev`;
