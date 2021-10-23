@@ -15,8 +15,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.less';
 import App from './App';
-import { ApolloClient, ApolloProvider } from '@apollo/client';
-import { gqlClient } from 'graphql-react-client';
+import { ApolloClient, ApolloProvider, gqlClient } from 'graphql-react-client';
 import authService from './shared/services/authService';
 
 gqlClient.init({
@@ -26,9 +25,9 @@ gqlClient.init({
 });
 
 async function initScope(scope) {
-    const sessionData: any = await authService.getSessionData();
-    authService.login(sessionData);
-    return sessionData?.mainRole === 'TYPE_CUSTOMER' ? 'customer' : scope;
+    const {token, mainRole} = await authService.getSessionData();
+    gqlClient.token = token;
+    return mainRole === 'TYPE_CUSTOMER' ? 'customer' : scope;
 }
 let scope;
 initScope('privateScope').then(response => {
