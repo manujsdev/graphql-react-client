@@ -31,16 +31,13 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn build
 
       - name: Lint
         run: yarn lint
 
       - name: Test
         run: yarn test --ci --coverage --maxWorkers=2
-
-      - name: Install Dependencies
-        run: yarn build
 
       - name: Semantic Release
         run: yarn semver

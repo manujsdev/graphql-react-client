@@ -114,8 +114,6 @@ describe('Test Graphql Service', () => {
   it('testing requestApollo without token', async () => {
     try {
       window.localStorage.removeItem(STORE_VAR);
-      // const dataStorage: any = window.localStorage.getItem(STORE_VAR);
-
       const context = {
         headers: {
           authorization: 'token'
@@ -191,12 +189,6 @@ describe('Test Graphql Service', () => {
       const schema = `query{
         SiteSettingGet{
           bookingPrefix
-          stripeAccountId
-          stripePublicKey
-          stripePrivateKey
-          fareNextDayPrice
-          fareFleetCommission
-          fareDriverCommission
           currency {
             id
             name
@@ -229,12 +221,6 @@ describe('Test Graphql Service', () => {
       const schema = `query{
         SiteSettingGet{
           bookingPrefix
-          stripeAccountId
-          stripePublicKey
-          stripePrivateKey
-          fareNextDayPrice
-          fareFleetCommission
-          fareDriverCommission
           currency {
             id
             name
@@ -269,12 +255,6 @@ describe('Test Graphql Service', () => {
       const schema = `query{
         SiteSettingGet{
           bookingPrefix
-          stripeAccountId
-          stripePublicKey
-          stripePrivateKey
-          fareNextDayPrice
-          fareFleetCommission
-          fareDriverCommission
           currency {
             id
             name
@@ -297,12 +277,6 @@ describe('Test Graphql Service', () => {
       const schema = `query{
         SiteSettingGet{
           bookingPrefix
-          stripeAccountId
-          stripePublicKey
-          stripePrivateKey
-          fareNextDayPrice
-          fareFleetCommission
-          fareDriverCommission
           currency {
             id
             name

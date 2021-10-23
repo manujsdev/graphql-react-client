@@ -64,3 +64,37 @@ async get(input: any): Promise<CustomerType> {
 return response.data.CustomerGet;
 }
 ```
+
+## Use in the components.
+```typescript
+import { useQuery } from 'graphql-react-client';
+
+export const GET_LIST = gql`
+  query ($input: GenericFilterInput) {
+    OrderList(input: $input) {
+      page
+      pageSize
+      total
+      items {
+        id
+        customerFullName
+        createdAt
+        status
+      }
+    }
+  }
+`;
+
+
+const { data, error, loading, refetch } = useQuery(GET_LIST, {
+    variables: {
+        input: {
+            page,
+            pageSize,
+            order: orderBy,
+            where: getFilter(where)
+        }
+    },
+    fetchPolicy: 'network-only'
+});
+```
