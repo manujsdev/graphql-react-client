@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/manu2manu/graphql-react-client/compare/v1.0.0...v1.0.1) (2021-10-23)
+
+
+### Bug Fixes
+
+* **application:** fixed install dependencies on github workflow ([17f0e78](https://github.com/manu2manu/graphql-react-client/commit/17f0e784a976929b067f9b6df425c47a300f85ef))
+
 # 1.0.0 (2021-10-23)
 
 
