@@ -1,10 +1,12 @@
-import { GraphqlService } from '../src/graphqlService';
-import { ApolloClient, gql } from '@apollo/client';
+import { DataInitType, GraphqlService } from '../src/graphqlService';
+// import {ApolloClient} from "@apollo/client";
+import { ApolloClient, gql } from '../src/index';
 
 describe('Test Graphql Service', () => {
   let instance: GraphqlService;
   const ENV = `dev`;
   const STORE_VAR = `jwt-${ENV}`;
+  const API = 'https://myApi.com';
 
   beforeEach(() => {
     instance = new GraphqlService();
@@ -12,6 +14,37 @@ describe('Test Graphql Service', () => {
 
   it('should instance of Graphql Service', () => {
     expect(instance).toBeInstanceOf(GraphqlService);
+  });
+
+  it('testing set token', () => {
+    instance.token = 'mytoken';
+    expect(instance.token).toEqual('mytoken');
+  });
+
+  it('testing set api', () => {
+    instance.api = API;
+    expect(instance.api).toEqual(API);
+  });
+
+  it('testing set uri', () => {
+    instance.uri = 'privateUri';
+    expect(instance.uri).toEqual('privateUri');
+  });
+
+  it('testing set publicUri', () => {
+    instance.publicUri = 'publicUri';
+    expect(instance.publicUri).toEqual('publicUri');
+  });
+
+  it('testing init', () => {
+    const initData: DataInitType = {
+      api: API,
+      uri: '/api/',
+      publicUri: 'public'
+    };
+
+    instance.init(initData);
+    expect(instance.publicUri).toEqual('public');
   });
 
   it('testing actionNetworkError with 403 error', () => {
@@ -34,7 +67,7 @@ describe('Test Graphql Service', () => {
 
   it('testing actionNetworkError with 500 error', () => {
     const error = {
-      status: 500
+      statusCode: 500
     };
     instance.actionNetworkError(error);
     const dataStorage: any = window.localStorage.getItem(STORE_VAR);
@@ -45,19 +78,6 @@ describe('Test Graphql Service', () => {
     instance.actionNetworkError(undefined);
     const dataStorage: any = window.localStorage.getItem(STORE_VAR);
     expect(JSON.parse(dataStorage)).toBeNull();
-  });
-
-  it('testing errorLink', () => {
-    // const error = {
-    //     statusCode: 403,
-    // };
-    // const myMockFn = jest.fn(cb => cb(null, true));
-    // // console.log(instance.errorLink())
-    // // myMockFn((err, val) => console.log(val));
-    //
-    // // ;
-    // // const dataStorage: any = window.localStorage.getItem(STORE_VAR);
-    // // expect(JSON.parse(dataStorage)).toBeNull();
   });
 
   // TODO review this test
@@ -273,18 +293,13 @@ describe('Test Graphql Service', () => {
   it('testing mutation', async () => {
     try {
       const scope = 'webApp';
-      const variables = { page: 4 };
-      const schema = `query{
-        SiteSettingGet{
-          bookingPrefix
-          currency {
-            id
-            name
-            alphabeticCode
-          }
+      const input = { id: 4 };
+      const schema = `mutation($input: GenericFilterInput!){
+        CustomerDelete(input: $input){
+          isSuccess
         }
       }`;
-      const query: any = await instance.mutate(scope, schema, variables);
+      const query: any = await instance.mutate(scope, schema, { input });
 
       expect(typeof query).toEqual(typeof new Object());
     } catch (e) {

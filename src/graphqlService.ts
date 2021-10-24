@@ -9,7 +9,7 @@ import {
 import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
 
-type DataInitType = {
+export type DataInitType = {
   api: string;
   uri: string;
   publicUri: string;
