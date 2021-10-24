@@ -31,7 +31,7 @@
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "format": "git diff --diff-filter=d --name-only HEAD | grep -E '(\\.tsx?|\\.json)$' | xargs prettier --write ",
+    "format": "git diff --diff-filter=d --name-only HEAD | grep -E '(\\.tsx?|\\.json|\\.md)$' | xargs prettier --write ",
     "precheck": "yarn format && yarn lint",
     "commit": "yarn precheck && git add . && git-cz",
     "semver": "semantic-release"

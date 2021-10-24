@@ -2,10 +2,14 @@
 
 Apollo Client service for React applications
 
-## Installation
+## Installing
+
+Using npm:
 
 `npm i -s graphql-react-client`
-or
+
+Using yarn:
+
 `yarn add graphql-react-client`
 
 ## Usage
@@ -19,34 +23,36 @@ import { ApolloClient, ApolloProvider, gqlClient } from 'graphql-react-client';
 import authService from './shared/services/authService';
 
 gqlClient.init({
-    api: `${process.env.REACT_APP_API}`,
-    uri: '/api/',
-    publicUri: '/api/public'
+  api: `${process.env.REACT_APP_API}`,
+  uri: '/api/',
+  publicUri: 'public'
 });
 
 async function initScope(scope) {
-    const {token, mainRole} = await authService.getSessionData();
-    gqlClient.token = token;
-    return mainRole === 'TYPE_CUSTOMER' ? 'customer' : scope;
+  const { token, mainRole } = await authService.getSessionData();
+  gqlClient.token = token;
+  return mainRole === 'TYPE_CUSTOMER' ? 'customer' : scope;
 }
+
 let scope;
 initScope('privateScope').then(response => {
-    scope = response;
+  scope = response;
 });
 
 gqlClient.getClient(scope).then(async (client: ApolloClient<any>) => {
-    ReactDOM.render(
-        <ApolloProvider {...{ client }}>
-            <App />
-        </ApolloProvider>,
-        document.getElementById('root')
-    );
+  ReactDOM.render(
+    <ApolloProvider {...{ client }}>
+      <App />
+    </ApolloProvider>,
+    document.getElementById('root')
+  );
 });
-
 ```
+
 #### and that's it, try it.
 
 ## Use in the services.
+
 ```typescript
 import { gqlClient } from 'graphql-react-client';
 
@@ -63,14 +69,20 @@ async get(input: any): Promise<CustomerType> {
     const response = await gqlClient.query('myScope', GET, { input });
 return response.data.CustomerGet;
 }
+
+async update(variables: any, scheme: string) {
+    const response: any = await gqlClient.mutate('myScope', scheme, variables);
+    return response.data;
+}
 ```
 
 ## Use in the components.
+
 ```typescript
 import { useQuery } from 'graphql-react-client';
 
 export const GET_LIST = gql`
-  query ($input: GenericFilterInput) {
+  query($input: GenericFilterInput) {
     OrderList(input: $input) {
       page
       pageSize
@@ -85,16 +97,15 @@ export const GET_LIST = gql`
   }
 `;
 
-
 const { data, error, loading, refetch } = useQuery(GET_LIST, {
-    variables: {
-        input: {
-            page,
-            pageSize,
-            order: orderBy,
-            where: getFilter(where)
-        }
-    },
-    fetchPolicy: 'network-only'
+  variables: {
+    input: {
+      page,
+      pageSize,
+      order: orderBy,
+      where: getFilter(where)
+    }
+  },
+  fetchPolicy: 'network-only'
 });
 ```
