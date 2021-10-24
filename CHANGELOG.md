@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/manu2manu/graphql-react-client/compare/v1.0.1...v1.0.2) (2021-10-24)
+
+
+### Bug Fixes
+
+* **client:** added type to client property ([cf09d2f](https://github.com/manu2manu/graphql-react-client/commit/cf09d2f9526717b1e6f5b46049d58dd2c5612059))
+
 ## [1.0.1](https://github.com/manu2manu/graphql-react-client/compare/v1.0.0...v1.0.1) (2021-10-23)
 
 
