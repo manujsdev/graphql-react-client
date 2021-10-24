@@ -16,11 +16,11 @@ export type DataInitType = {
 };
 
 export class GraphqlService {
-  _client: any = undefined;
+  _client: ApolloClient<any> | undefined = undefined;
   _token: string | undefined = undefined;
   _api = ''; // https://myapi.com
-  _uri = ''; // /api
-  _publicUri = ''; // /publicApi
+  _uri = ''; // /api/
+  _publicUri = ''; // publicApi
 
   get client() {
     return this._client;
@@ -176,7 +176,7 @@ export class GraphqlService {
           .catch(observer.error.bind(observer));
 
         return () => {
-          handle && handle.unsubscribe();
+          handle?.unsubscribe?.();
         };
       })
   );
