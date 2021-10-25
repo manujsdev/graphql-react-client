@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/manu2manu/graphql-react-client/compare/v1.0.2...v1.0.3) (2021-10-25)
+
+
+### Bug Fixes
+
+* **instance:** added async to request method and solved other issues ([98f3f28](https://github.com/manu2manu/graphql-react-client/commit/98f3f287d79e9edf517e309e868399484233530d))
+
 ## [1.0.2](https://github.com/manu2manu/graphql-react-client/compare/v1.0.1...v1.0.2) (2021-10-24)
 
 
