@@ -1,5 +1,4 @@
 import { DataInitType, GraphqlService } from '../src/graphqlService';
-// import {ApolloClient} from "@apollo/client";
 import { ApolloClient, gql } from '../src/index';
 
 describe('Test Graphql Service', () => {
@@ -17,23 +16,23 @@ describe('Test Graphql Service', () => {
   });
 
   it('testing set token', () => {
-    instance.token = 'mytoken';
-    expect(instance.token).toEqual('mytoken');
+    instance.setToken('mytoken');
+    expect(instance.getToken()).toEqual('mytoken');
   });
 
   it('testing set api', () => {
-    instance.api = API;
-    expect(instance.api).toEqual(API);
+    instance.setApi(API);
+    expect(instance.getApi()).toEqual(API);
   });
 
   it('testing set uri', () => {
-    instance.uri = 'privateUri';
-    expect(instance.uri).toEqual('privateUri');
+    instance.setUri('privateUri');
+    expect(instance.getUri()).toEqual('privateUri');
   });
 
   it('testing set publicUri', () => {
-    instance.publicUri = 'publicUri';
-    expect(instance.publicUri).toEqual('publicUri');
+    instance.setPublicUri('publicUri');
+    expect(instance.getPublicUri()).toEqual('publicUri');
   });
 
   it('testing init', () => {
@@ -44,7 +43,7 @@ describe('Test Graphql Service', () => {
     };
 
     instance.init(initData);
-    expect(instance.publicUri).toEqual('public');
+    expect(instance.getPublicUri()).toEqual('public');
   });
 
   it('testing actionNetworkError with 403 error', () => {
@@ -197,7 +196,8 @@ describe('Test Graphql Service', () => {
 
   it('testing getClient with client', () => {
     const scope = 'webApp';
-    instance.client = instance.createPrivateClient(scope);
+    const privateClient = instance.createPrivateClient(scope);
+    instance.client = privateClient;
     const client: any = instance.getClient(scope);
     window.localStorage.removeItem(STORE_VAR);
     expect(typeof client).toEqual(typeof new Object());

@@ -16,7 +16,7 @@ export type DataInitType = {
 };
 
 export class GraphqlService {
-  _client: ApolloClient<any> | undefined = undefined;
+  _client: any = undefined;
   _token: string | undefined = undefined;
   _api = ''; // https://myapi.com
   _uri = ''; // /api/
@@ -28,28 +28,28 @@ export class GraphqlService {
   set client(client: any) {
     this._client = client;
   }
-  get token() {
+  getToken() {
     return this._token;
   }
-  set token(token: string | undefined) {
+  setToken(token: string | undefined) {
     this._token = token;
   }
-  get api() {
+  getApi() {
     return this._api;
   }
-  set api(api: string) {
+  setApi(api: string) {
     this._api = api;
   }
-  get uri() {
+  getUri() {
     return this._uri;
   }
-  set uri(uri: string) {
+  setUri(uri: string) {
     this._uri = uri;
   }
-  get publicUri() {
+  getPublicUri() {
     return this._publicUri;
   }
-  set publicUri(publicUri: string) {
+  setPublicUri(publicUri: string) {
     this._publicUri = publicUri;
   }
 
@@ -68,7 +68,7 @@ export class GraphqlService {
    */
   actionNetworkError(networkError: any) {
     if (networkError) {
-      const { statusCode } = networkError as any;
+      const { statusCode } = networkError;
       if (statusCode === 500) {
         console.log('Cannot connect to server');
       } else if (statusCode === 403) {
@@ -98,7 +98,7 @@ export class GraphqlService {
       link: ApolloLink.from([
         this.errorLink,
         new HttpLink({
-          uri: `${this.api}${this.uri}${this.publicUri}`,
+          uri: `${this._api}${this._uri}${this._publicUri}`,
           credentials: 'same-origin'
         })
       ]),
@@ -155,7 +155,7 @@ export class GraphqlService {
   requestApollo = async (operation: any) => {
     operation.setContext({
       headers: {
-        authorization: this.token ? `Bearer ${this.token}` : ''
+        authorization: this._token ? `Bearer ${this._token}` : ''
       }
     });
   };
@@ -190,7 +190,7 @@ export class GraphqlService {
         this.errorLink,
         this.requestLink,
         createUploadLink({
-          uri: `${this.api}${this.uri}${scope}`
+          uri: `${this._api}${this._uri}${scope}`
         }) as any
       ]),
       cache: new InMemoryCache()
@@ -212,7 +212,7 @@ export class GraphqlService {
    * @param callback a client graphql
    */
   async request(scope: string, callback: any) {
-    const client = this.getClient(scope);
+    const client = await this.getClient(scope);
     return callback(client);
   }
 
