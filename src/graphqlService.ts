@@ -8,14 +8,7 @@ import {
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
-
-export type DataInitType = {
-  api: string;
-  uri: string;
-  publicUri: string;
-};
-
-type ClientFunction = (client: ApolloClient<any>) => void;
+import { ClientFunction, DataInitType } from './types';
 
 export class GraphqlService {
   _client: any = undefined;

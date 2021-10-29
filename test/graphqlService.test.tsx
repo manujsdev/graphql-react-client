@@ -1,5 +1,6 @@
-import { DataInitType, GraphqlService } from '../src/graphqlService';
+import { GraphqlService } from '../src/graphqlService';
 import { ApolloClient, gql } from '../src/index';
+import { DataInitType } from '../src/types';
 
 describe('Test Graphql Service', () => {
   let instance: GraphqlService;
