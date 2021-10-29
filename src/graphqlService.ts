@@ -15,6 +15,8 @@ export type DataInitType = {
   publicUri: string;
 };
 
+type ClientFunction = (client: ApolloClient<any>) => void;
+
 export class GraphqlService {
   _client: any = undefined;
   _token: string | undefined = undefined;
@@ -110,12 +112,23 @@ export class GraphqlService {
    *
    * @param callback
    */
-  publicRequest(callback: any) {
+  publicRequest(callback: ClientFunction) {
     return new Promise((resolve, reject) => {
       const client = this.createPublicClient();
       resolve(callback(client));
     });
   }
+
+  private execPublic = (schema: string, variables: any, mutate = true) => {
+    return this.publicRequest((client: ApolloClient<any>) => {
+      return (client as any)[mutate ? 'mutate' : 'query']({
+        [mutate ? 'mutation' : 'query']: gql`
+          ${schema}
+        `,
+        variables
+      });
+    });
+  };
 
   /**
    *
@@ -123,14 +136,7 @@ export class GraphqlService {
    * @param variables variables to filter, etc
    */
   publicQuery(schema: string, variables: any) {
-    return this.publicRequest((client: ApolloClient<any>) => {
-      return client.query({
-        query: gql`
-          ${schema}
-        `,
-        variables
-      });
-    });
+    return this.execPublic(schema, variables, false);
   }
 
   /**
@@ -139,14 +145,7 @@ export class GraphqlService {
    * @param variables variables to mutate
    */
   publicMutate(schema: string, variables: any) {
-    return this.publicRequest((client: ApolloClient<any>) => {
-      return client.mutate({
-        mutation: gql`
-          ${schema}
-        `,
-        variables
-      });
-    });
+    return this.execPublic(schema, variables);
   }
 
   /**
@@ -203,7 +202,7 @@ export class GraphqlService {
    * @returns a client graphql
    */
   async getClient(scope = 'websiteBackend') {
-    return this.client ? this.client : this.createPrivateClient(scope);
+    return this.client ?? this.createPrivateClient(scope);
   }
 
   /**
@@ -211,7 +210,7 @@ export class GraphqlService {
    * @param scope should be public, webApp, etc
    * @param callback a client graphql
    */
-  async request(scope: string, callback: any) {
+  async request(scope: string, callback: ClientFunction) {
     const client = await this.getClient(scope);
     return callback(client);
   }

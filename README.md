@@ -34,20 +34,31 @@ async function initScope(scope) {
   return mainRole === 'TYPE_CUSTOMER' ? 'customer' : scope;
 }
 
-let scope;
-initScope('privateScope').then(response => {
-  scope = response;
-});
-
-gqlClient.getClient(scope).then(async (client: ApolloClient<any>) => {
-  ReactDOM.render(
-    <ApolloProvider {...{ client }}>
-      <App />
-    </ApolloProvider>,
-    document.getElementById('root')
-  );
+initScope('privateScope').then(scope => {
+  gqlClient.getClient(scope).then((client: ApolloClient<any>) => {
+    ReactDOM.render(
+      <ApolloProvider {...{ client }}>
+        <App />
+      </ApolloProvider>,
+      document.getElementById('root')
+    );
+  });
 });
 ```
+
+## Example of urls:
+
+### Private scope:
+
+`https://myurl.com/api/privateScope`
+
+### Customer scope:
+
+`https://myurl.com/api/customer`
+
+### Public scope:
+
+`https://myurl.com/api/public`
 
 #### and that's it, try it.
 
