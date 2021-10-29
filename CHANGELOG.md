@@ -1,3 +1,5 @@
+## [1.0.4](https://github.com/manu2manu/graphql-react-client/compare/v1.0.3...v1.0.4) (2021-10-29)
+
 ## [1.0.3](https://github.com/manu2manu/graphql-react-client/compare/v1.0.2...v1.0.3) (2021-10-25)
 
 
